@@ -34,11 +34,11 @@ This tutorial demonstrates incorporating Datadog Code Security into a CI/CD pipe
 
 ### Github 
 
-Clone this repo to your Github account and check it out locally.
+Fork or [duplicate](https://docs.github.com/en/repositories/creating-and-managing-repositories/duplicating-a-repository) this repo to your Github account and check it out locally.
 
 #### Repository secrets
 
-Add the following key/value pairs to your Github repo:
+Add the following key/value pairs to your Github repo, under Settings > Secrets and Variables > Actions
 
 ```
 AWS_ACCESS_KEY_ID=<your IAM user's access key id>
@@ -65,15 +65,20 @@ IMPORTANT: You can change `AWS_REGION`, but make sure it matches the variable in
 
 #### Github repo integration
 
-TODO - including automated pull request comments.
+- Install the Github https://docs.datadoghq.com/integrations/github/ integration and be sure your repo is in scope.
+- Configure the app for [GitHub Pull Requests](https://docs.datadoghq.com/security/code_security/dev_tool_int/github_pull_requests/)
+- Go to your Github [organization settings](https://github.com/settings/profile) and click "Applications".  For the Datadog Github app, either allow "All repositories" for your account or choose the repo you created for this tutorial.
 
 ## Deploy AWS infrastructure and application
 
 The included Terraform code will create an ECR repo and an ECS cluster, service, and task configuration.  The deployment includes a sample container to help ensure the deployment was successful before trying to deploy our application to ECS.
 
+Ensure you're authenticated for CLI access to your AWS account before running the following.
+
 ```sh
 cp infra/terraform/terraform.tfvars.sample infra/terraform/terraform.tfvars
 # ^^^ Optionally change the values before executing terraform: default region is us-east-2
+terraform -chdir=infra/terraform init
 terraform -chdir=infra/terraform apply
 # answer "yes" to the prompt
 # after a minute or two (the IP may not be immediately available)
