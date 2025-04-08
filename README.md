@@ -136,8 +136,11 @@ git push origin vuln-branch
 
 ### Create and Merge Pull Request in Github
 
+- NOTE: before proceeding, ensure you don't have any Quality Gate rules configured that might be triggered by an action on this repo.
 - Observe the automated PR comments and merge it to main branch.  Do NOT delete the branch.
 - TODO (more detail)
+
+![alt text](image.png)
 
 ### Confirm vulnerability in running application
 
